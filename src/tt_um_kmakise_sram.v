@@ -96,7 +96,7 @@ SRAMController SRAMController_ins (
 	.rx_enable (rx_enable),
 	.rx_ready (rx_ready),
 	// sram
-	.csb_n (csb_n);
+	.csb_n (csb_n),
 	.we_n (we_n),
 	.addr (addr),
 	.sram_data_out (sram_data_out_full[31:0]),
@@ -108,12 +108,12 @@ myconfig_sky sram_ins (
     .vccd1(VPWR),
     .vssd1(VGND),
 `endif
-  .clk0(clk); // clock
-  .csb0(csb_n); // active low chip select
-  .web0(we_n); // active low write control
-  .addr0(addr);
-  .spare_wen0(1'b0); // spare mask
-  .din0(sram_data_in_full);
-  .dout0(sram_data_out_full);
+  .clk0(clk), // clock
+  .csb0(csb_n), // active low chip select
+  .web0(we_n), // active low write control
+  .addr0(addr),
+  .spare_wen0(1'b0), // spare mask
+  .din0(sram_data_in_full),
+  .dout0(sram_data_out_full)
 );
 endmodule
