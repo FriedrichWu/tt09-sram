@@ -21,16 +21,16 @@ module SRAMController (
 //=====================================//
 //==========INTERNAL_SIGNAL============//
 //=====================================//
-localparam IDLE = 'b0000;
-localparam RD_0 = 'b0001;
-localparam RD_1 = 'b0010;
-localparam RD_2 = 'b0011;
-localparam RD_3 = 'b0100;
-localparam WD_0 = 'b0101;
-localparam WD_1 = 'b0110;
-localparam WD_2 = 'b0111;
-localparam WD_3 = 'b1000;
-localparam WRITE = 'b1001;
+localparam IDLE = 4'b0000;
+localparam RD_0 = 4'b0001;
+localparam RD_1 = 4'b0010;
+localparam RD_2 = 4'b0011;
+localparam RD_3 = 4'b0100;
+localparam WD_0 = 4'b0101;
+localparam WD_1 = 4'b0110;
+localparam WD_2 = 4'b0111;
+localparam WD_3 = 4'b1000;
+localparam WRITE = 4'b1001;
 reg [2:0] cur_state;
 reg [2:0] nxt_state;
 reg [7:0] addr_tmp;
@@ -188,7 +188,7 @@ always @(*) begin
 		WRITE: begin
             we_n = 'b1;
 			csb_n = 'b0;
-			addr = rx_data_out[4:0];
+			addr = addr_tmp[4:0];
 			sram_data_in = data_tmp;	
 			nxt_state = IDLE;
 		end

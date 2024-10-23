@@ -34,6 +34,9 @@
   "//": "Configuration docs: https://openlane.readthedocs.io/en/latest/reference/configuration.html",
   "MAGIC_LEF_WRITE_USE_GDS": true,
   "VERILOG_FILES_BLACKBOX": "dir::myconfig_sky.v",
+  "VDD_NETS": "VPWR",
+  "GND_NETS": "VGND",
+  "FP_PDN_MACRO_HOOKS": "sram_ins VPWR VGND vccd1 vssd1",
   "MACROS": {
     "myconfig_sky": {
       "instances": {
