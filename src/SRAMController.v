@@ -35,8 +35,8 @@ reg [2:0] cur_state;
 reg [2:0] nxt_state;
 reg [7:0] addr_tmp;
 reg [31:0] data_tmp;
-wire addr_tmp_en;
-wire data_tmp_en;
+reg addr_tmp_en;
+reg data_tmp_en;
 //============ADDR_TMP_REG==============//
 always @(posedge clk, negedge rst_n) begin
 	if (!rst_n) begin
