@@ -7,8 +7,8 @@
 
 module tt_um_kmakise_sram (
 `ifdef USE_POWER_PINS
-    input             VPWR,
-    input             VGND,
+    inout             VPWR,
+    inout             VGND,
 `endif
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
@@ -55,7 +55,7 @@ wire rx_in;
 wire tx_out;
 assign sram_data_in_full = {1'b0, sram_data_in};
 assign reset = ~rst_n;
-assign ui_in[3] = rx_in;
+assign rx_in = ui_in[3];
 assign uio_out[4] = tx_out;
 //============================================//
 //=================INSTANCES==================//
