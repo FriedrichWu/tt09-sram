@@ -43,8 +43,7 @@
         }
       },
       "gds": ["dir::../macro/myconfig_sky.gds"],
-      "lef": ["dir::../macro/myconfig_sky.lef"],
-      "lib": ["dir::../macro/myconfig_sky_TT_1p8V_25C.lib"]
+      "lef": ["dir::../macro/myconfig_sky.lef"]
     }
   },
   "//": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
