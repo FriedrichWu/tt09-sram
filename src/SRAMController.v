@@ -82,7 +82,7 @@ always @(*) begin
 	data_tmp_en = 'b0;
 	case (cur_state)
 		IDLE: begin
-			if rx_valid begin
+			if (rx_valid) begin
 				if (rx_data_out[5] == 'b1) begin // read 
                     we_n = 'b1;
 					csb_n = 'b0;
