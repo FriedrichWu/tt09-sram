@@ -55,7 +55,7 @@ always @(posedge clk, negedge rst_n) begin
 	end
 	else begin
 		if (data_tmp_en) begin
-			data_tmp <= {data_tmp[23:0], rx_data_out}
+			data_tmp <= {data_tmp[23:0], rx_data_out};
 		end
 	end
 end
