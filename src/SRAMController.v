@@ -81,6 +81,9 @@ always @(*) begin
 	rx_ready = 'b0;
 	data_tmp_en = 'b0;
 	rx_enable = 'b1;
+	addr = 'b0;
+	sram_data_in = 'b0;
+	tx_data_in = 'b0;
 	case (cur_state)
 		IDLE: begin
 			if (rx_valid) begin
