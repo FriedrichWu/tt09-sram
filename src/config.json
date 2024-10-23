@@ -33,7 +33,7 @@
 
   "//": "Configuration docs: https://openlane.readthedocs.io/en/latest/reference/configuration.html",
   "MAGIC_LEF_WRITE_USE_GDS": true,
-  "VERILOG_FILES_BLACKBOX": "dir::src/myconfig_sky.v",
+  "VERILOG_FILES_BLACKBOX": "dir::myconfig_sky.v",
   "MACROS": {
     "myconfig_sky": {
       "instances": {
@@ -42,9 +42,9 @@
           "orientation": "N"
         }
       },
-      "gds": ["dir::macro/myconfig_sky.gds"],
-      "lef": ["dir::macro/myconfig_sky.lef"],
-      "lib": ["dir::macro/myconfig_sky_TT_1p8V_25C.lib"]
+      "gds": ["dir::../macro/myconfig_sky.gds"],
+      "lef": ["dir::../macro/myconfig_sky.lef"],
+      "lib": ["dir::../macro/myconfig_sky_TT_1p8V_25C.lib"]
     }
   },
   "//": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
