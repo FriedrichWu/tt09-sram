@@ -12,7 +12,7 @@ module SRAMController (
 	output reg rx_enable,
 	output reg rx_ready,
 	// sram
-	output reg csb_n;
+	output reg csb_n,
 	output reg we_n,
 	input wire [4:0] addr,
 	input wire [31:0] sram_data_out,
