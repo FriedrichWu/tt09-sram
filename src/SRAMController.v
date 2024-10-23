@@ -80,6 +80,7 @@ always @(*) begin
 	tx_valid    = 'b0; 
 	rx_ready = 'b0;
 	data_tmp_en = 'b0;
+	rx_enable = 'b1;
 	case (cur_state)
 		IDLE: begin
 			if (rx_valid) begin
