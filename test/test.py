@@ -124,6 +124,7 @@ async def check_data(dut, data_write_0, data_write_1, data_write_2, data_write_3
     TEST_DATA_LSB_1 = [(data_write_1 >> s) & 1 for s in range(8)]
     TEST_DATA_LSB_2 = [(data_write_2 >> s) & 1 for s in range(8)]
     TEST_DATA_LSB_3 = [(data_write_3 >> s) & 1 for s in range(8)]
+    assert dut.user_project.UARTTransmitter_ins.out.value == 1
     await Edge(dut.user_project.UARTTransmitter_ins.out)
     # make sure signal is stable
     await Timer(int(0.5 / baud * baud_mult * 1e12), units="ps")
