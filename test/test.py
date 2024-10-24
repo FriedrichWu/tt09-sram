@@ -124,28 +124,28 @@ async def check_data(dut, data_write_0, data_write_1, data_write_2, data_write_3
     TEST_DATA_LSB_1 = [(data_write_1 >> s) & 1 for s in range(8)]
     TEST_DATA_LSB_2 = [(data_write_2 >> s) & 1 for s in range(8)]
     TEST_DATA_LSB_3 = [(data_write_3 >> s) & 1 for s in range(8)]
-    await Edge(dut.user_project.UARTTransmitter_ins.out.value)
+    await Edge(int(dut.user_project.UARTTransmitter_ins.out.value))
     # make sure signal is stable
     await Timer(int(0.5 / baud * baud_mult * 1e12), units="ps")
     # check every bit of received data 0
     for expected_bit in [0] + TEST_DATA_LSB_0 + [1]:
         assert dut.user_project.UARTTransmitter_ins.out.value == expected_bit
         await Timer(int(1.0 / baud * baud_mult * 1e12), units="ps")
-    await Edge(dut.user_project.UARTTransmitter_ins.out.value)
+    await Edge(int(dut.user_project.UARTTransmitter_ins.out.value))
     # make sure signal is stable
     await Timer(int(0.5 / baud * baud_mult * 1e12), units="ps")
     # check every bit of received data 1
     for expected_bit in [0] + TEST_DATA_LSB_1 + [1]:
         assert dut.user_project.UARTTransmitter_ins.out.value == expected_bit
         await Timer(int(1.0 / baud * baud_mult * 1e12), units="ps")
-    await Edge(dut.user_project.UARTTransmitter_ins.out.value)
+    await Edge(int(dut.user_project.UARTTransmitter_ins.out.value))
     # make sure signal is stable
     await Timer(int(0.5 / baud * baud_mult * 1e12), units="ps")
     # check every bit of received data 2
     for expected_bit in [0] + TEST_DATA_LSB_2 + [1]:
         assert dut.user_project.UARTTransmitter_ins.out.value == expected_bit
         await Timer(int(1.0 / baud * baud_mult * 1e12), units="ps")
-    await Edge(dut.user_project.UARTTransmitter_ins.out.value)
+    await Edge(int(dut.user_project.UARTTransmitter_ins.out.value))
     # make sure signal is stable
     await Timer(int(0.5 / baud * baud_mult * 1e12), units="ps")
     # check every bit of received data 3
