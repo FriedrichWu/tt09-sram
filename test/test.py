@@ -9,7 +9,7 @@ import random
 NUM_RUNS = 1
 BAUD_ERR_PERCENT = 2
 
-@cocotb.test(timeout_time=50, timeout_unit='s')
+@cocotb.test(timeout_time=50, timeout_unit='sec')
 async def run_random_case(dut):
     """TX with randomized payload / clock frequency shift / inter-TX delay."""
 
