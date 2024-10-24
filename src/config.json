@@ -37,6 +37,8 @@
   "VDD_NETS": "VPWR",
   "GND_NETS": "VGND",
   "FP_PDN_MACRO_HOOKS": "sram_ins VPWR VGND vccd1 vssd1",
+  "FP_PDN_CHECK_NODES": false,
+  "EXTRA_LIBS": ["dir::../macro/myconfig_sky_TT_1p8V_25C.lib"],
   "MACROS": {
     "myconfig_sky": {
       "instances": {

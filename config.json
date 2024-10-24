@@ -1,0 +1,49 @@
+{
+	"DESIGN_NAME": "tt_um_kmakise_sram",
+	"VERILOG_FILES": ["dir::src/tt_um_kmakise_sram.v", "dir::src/SRAMController.v", "dir::src/UARTReceiver.v", "dir::src/UARTTransmitter.v"],
+	"EXTRA_VERILOG_MODELS": ["dir::src/myconfig_sky.v"],
+  
+	"FP_PDN_CHECK_NODES": false,
+	"FP_PDN_VOFFSET": 26.32,
+	"FP_PDN_CFG": "pdn_cfg.tcl",
+	"MAGIC_LEF_WRITE_USE_GDS": true,
+	"MAGIC_WRITE_LEF_PINONLY": true,
+	"VDD_NETS": "VPWR",
+	"GND_NETS": "VGND",
+    "FP_PDN_MACRO_HOOKS": "sram_ins VPWR VGND vccd1 vssd1",
+	"MACROS": {
+		"myconfig_sky": {
+		  "instances": {
+			"sram_ins": {
+			  "location": [170, 20],
+			  "orientation": "N"
+			}
+		  },
+		  "gds": ["dir::macro/myconfig_sky.gds"],
+		  "lef": ["dir::macro/myconfig_sky.lef"]
+		}
+	},
+  
+	"FP_SIZING": "absolute",
+	"DIE_AREA": [0, 0, 480, 200],
+  
+	"//": "MAGIC_DEF_LABELS may cause issues with LVS",
+	"MAGIC_DEF_LABELS": false,
+  
+	"//": "use alternative efabless decap cells to solve LI density issue",
+	"DECAP_CELL": [
+	  "sky130_fd_sc_hd__decap_3",
+	  "sky130_fd_sc_hd__decap_4",
+	  "sky130_fd_sc_hd__decap_6",
+	  "sky130_fd_sc_hd__decap_8",
+	  "sky130_ef_sc_hd__decap_12"
+	],
+  
+	"//": "period is in ns, so 20ns == 50mHz",
+	"CLOCK_PERIOD": 40,
+	"CLOCK_PORT": "clk",
+  
+	"//": "don't use power rings or met5",
+	"DESIGN_IS_CORE": false,
+	"RT_MAX_LAYER": "met4"
+}
