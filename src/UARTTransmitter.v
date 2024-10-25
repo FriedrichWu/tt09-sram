@@ -35,7 +35,7 @@
 
 module UARTTransmitter #(
     parameter CLOCK_RATE = 25000000,
-    parameter BAUD_RATE = 115200
+    parameter BAUD_RATE = 9600
 )(
     input  wire       clk,      // clock
     input  wire       reset,    // reset

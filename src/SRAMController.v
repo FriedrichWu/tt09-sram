@@ -21,22 +21,25 @@ module SRAMController (
 //=====================================//
 //==========INTERNAL_SIGNAL============//
 //=====================================//
-localparam IDLE = 4'b0000;
-localparam RD_0 = 4'b0001;
-localparam RD_1 = 4'b0010;
-localparam RD_2 = 4'b0011;
-localparam RD_3 = 4'b0100;
-localparam WD_0 = 4'b0101;
-localparam WD_1 = 4'b0110;
-localparam WD_2 = 4'b0111;
-localparam WD_3 = 4'b1000;
-localparam WRITE = 4'b1001;
+localparam IDLE       = 4'b0000;
+localparam READ_STORE = 4'b0001;
+localparam RD_0       = 4'b0010;
+localparam RD_1       = 4'b0011;
+localparam RD_2       = 4'b0100;
+localparam RD_3       = 4'b0101;
+localparam WD_0       = 4'b0110;
+localparam WD_1       = 4'b0111;
+localparam WD_2       = 4'b1000;
+localparam WD_3       = 4'b1001;
+localparam WRITE      = 4'b1010;
 reg [3:0] cur_state;
 reg [3:0] nxt_state;
 reg [7:0] addr_tmp;
 reg [31:0] data_tmp;
+reg [31:0] sram_tmp;
 reg addr_tmp_en;
 reg data_tmp_en;
+reg sram_tmp_en;
 //============ADDR_TMP_REG==============//
 always @(posedge clk, negedge rst_n) begin
 	if (!rst_n) begin
@@ -55,7 +58,19 @@ always @(posedge clk, negedge rst_n) begin
 	end
 	else begin
 		if (data_tmp_en) begin
-			data_tmp <= {data_tmp[23:0], rx_data_out};
+			data_tmp <= {rx_data_out, data_tmp[31:8]};
+		end
+	end
+end
+//==============SRAM_TMP_REG============//
+// store the dout0 port information at sram, otherwire the data will be lost 
+always @(posedge clk, negedge rst_n) begin
+	if (!rst_n) begin
+		sram_tmp <= 'b0;
+	end
+	else begin
+		if (sram_tmp_en) begin
+			sram_tmp <= sram_data_out;
 		end
 	end
 end
@@ -84,6 +99,7 @@ always @(*) begin
 	addr = 'b0;
 	sram_data_in = 'b0;
 	tx_data_in = 'b0;
+	sram_tmp_en = 'b0;
 	case (cur_state)
 		IDLE: begin
 			if (rx_valid) begin
@@ -92,7 +108,7 @@ always @(*) begin
 					csb_n = 'b0;
 					addr = rx_data_out[4:0];
 					rx_ready = 'b1;
-					nxt_state = RD_0;
+					nxt_state = READ_STORE;
 				end 
 				else begin // write
 					addr_tmp_en = 'b1;// store the address
@@ -104,47 +120,56 @@ always @(*) begin
 				nxt_state = IDLE;
 			end
 		end 
+		READ_STORE: begin
+			sram_tmp_en = 'b1;
+			tx_enable = 'b1;
+			nxt_state = RD_0;
+		end
 		RD_0: begin
 			if (tx_ready) begin
 				tx_enable = 'b1;
-				tx_data_in = sram_data_out[7:0];	
+				tx_data_in = sram_tmp[7:0];	
 				tx_valid = 'b1;
 				nxt_state = RD_1;
 			end
 			else begin
+				tx_enable = 'b1;
 				nxt_state = RD_0;
 			end
 		end
 		RD_1: begin
 			if (tx_ready) begin
 				tx_enable = 'b1;
-				tx_data_in = sram_data_out[15:8];
+				tx_data_in = sram_tmp[15:8];
 				tx_valid = 'b1;
 				nxt_state = RD_2;
 			end
 			else begin
+				tx_enable = 'b1;
 				nxt_state = RD_1;
 			end
 		end
 		RD_2: begin
 			if (tx_ready) begin
 				tx_enable = 'b1;
-				tx_data_in = sram_data_out[23:16];
+				tx_data_in = sram_tmp[23:16];
 				tx_valid = 'b1;
 				nxt_state = RD_3;
 			end
 			else begin
+				tx_enable = 'b1;
 				nxt_state = RD_2;
 			end
 		end
 		RD_3: begin
 			if (tx_ready) begin
 				tx_enable = 'b1;
-				tx_data_in = sram_data_out[31:24];
+				tx_data_in = sram_tmp[31:24];
 				tx_valid = 'b1;
 				nxt_state = IDLE;
 			end
 			else begin
+				tx_enable = 'b1;
 				nxt_state = RD_3;
 			end
 		end
@@ -189,7 +214,7 @@ always @(*) begin
 			end
 		end
 		WRITE: begin
-            we_n = 'b1;
+            we_n = 'b0;
 			csb_n = 'b0;
 			addr = addr_tmp[4:0];
 			sram_data_in = data_tmp;	
