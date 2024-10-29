@@ -26,8 +26,39 @@ add_pdn_stripe \
     -layer $::env(FP_PDN_VERTICAL_LAYER) \
     -width $::env(FP_PDN_VWIDTH) \
     -pitch $::env(FP_PDN_VPITCH) \
+	-spacing 2\
+	-number_of_straps 1\
     -offset $::env(FP_PDN_VOFFSET) \
     -starts_with POWER
+
+add_pdn_stripe \
+    -grid stdcell_grid \
+    -layer $::env(FP_PDN_VERTICAL_LAYER) \
+    -width $::env(FP_PDN_VWIDTH) \
+    -pitch $::env(FP_PDN_VPITCH) \
+	-spacing 2\
+	-number_of_straps 1\
+    -offset 183 \
+    -starts_with POWER\
+
+add_pdn_stripe \
+    -grid stdcell_grid \
+    -layer $::env(FP_PDN_VERTICAL_LAYER) \
+    -width $::env(FP_PDN_VWIDTH) \
+    -pitch $::env(FP_PDN_VPITCH) \
+	-spacing 2\
+	-number_of_straps 1\
+    -offset 460 \
+    -starts_with POWER
+
+add_pdn_stripe \
+    -grid stdcell_grid \
+    -layer $::env(FP_PDN_HORIZONTAL_LAYER) \
+    -width $::env(FP_PDN_HWIDTH) \
+    -pitch $::env(FP_PDN_HPITCH) \
+    -offset $::env(FP_PDN_HOFFSET) \
+    -spacing $::env(FP_PDN_HSPACING) \
+    -starts_with POWER 
 
 # Adds the standard cell rails if enabled.
 if { $::env(FP_PDN_ENABLE_RAILS) == 1 } {
@@ -42,3 +73,21 @@ if { $::env(FP_PDN_ENABLE_RAILS) == 1 } {
         -grid stdcell_grid \
         -layers "$::env(FP_PDN_RAIL_LAYER) $::env(FP_PDN_VERTICAL_LAYER)"
 }
+
+# this will tell the tool the power ring of the macro
+define_pdn_grid \
+    -macro \
+    -default \
+    -name macro \
+    -starts_with POWER \
+    -halo "$::env(FP_PDN_HORIZONTAL_HALO) $::env(FP_PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid macro \
+    -layers "met3 met4"
+	
+# this will add vias at the power ring, make sure power line is connected to the macro power ring
+add_pdn_connect \
+    -grid stdcell_grid \
+    -layers "met3 met4"
+

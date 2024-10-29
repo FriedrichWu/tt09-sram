@@ -32,25 +32,37 @@
   "CLOCK_PORT": "clk",
 
   "//": "Configuration docs: https://openlane.readthedocs.io/en/latest/reference/configuration.html",
-  "MAGIC_LEF_WRITE_USE_GDS": true,
-  "VERILOG_FILES_BLACKBOX": "dir::myconfig_sky.v",
-  "VDD_NETS": "VPWR",
-  "GND_NETS": "VGND",
-  "FP_PDN_MACRO_HOOKS": "sram_ins VPWR VGND vccd1 vssd1",
+
+  "EXTRA_VERILOG_MODELS": ["dir::myconfig_sky.v"],
+
   "FP_PDN_CHECK_NODES": false,
-  "EXTRA_LIBS": ["dir::../macro/myconfig_sky_TT_1p8V_25C.lib"],
+  "FP_PDN_VOFFSET": 26.32,
+  "FP_PDN_CFG": "dir::../pdn_cfg.tcl",
+  "RUN_MAGIC_WRITE_LEF": true,
+  "MAGIC_LEF_WRITE_USE_GDS": false,
+  "MAGIC_CAPTURE_ERRORS": false,
+  "MAGIC_DRC_USE_GDS": false,
+  "QUIT_ON_MAGIC_DRC": false,
+  "QUIT_ON_KLAYOUT_DRC": false,
+  "SYNTH_ABC_BUFFERING": true,
+  "RUN_HEURISTIC_DIODE_INSERTION": true,
+  "VDD_NETS": "vccd1",
+  "GND_NETS": "vssd1",
+  "FP_PDN_MACRO_HOOKS": "sram_ins vccd1 vssd1 vccd1 vssd1",
+  "SYNTH_POWER_DEFINE": "USE_POWER_PINS",
   "MACROS": {
-    "myconfig_sky": {
-      "instances": {
-        "sram_ins": {
-          "location": [170, 20],
-          "orientation": "N"
-        }
-      },
-      "gds": ["dir::../macro/myconfig_sky.gds"],
-      "lef": ["dir::../macro/myconfig_sky.lef"]
-    }
+	  "myconfig_sky": {
+		"instances": {
+		  "sram_ins": {
+			"location": [150, 23],
+			"orientation": "N"
+		  }
+		},
+		"gds": ["dir::../macro/myconfig_sky.gds"],
+		"lef": ["dir::../macro/myconfig_sky.lef"]
+	  }
   },
+
   "//": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
   "//": "!!! DO NOT CHANGE ANYTHING BELOW THIS POINT !!!",
   "//": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",

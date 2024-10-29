@@ -105,7 +105,7 @@ cell (myconfig_sky){
             address : addr0; 
             clocked_on  : clk0; 
         }
-        pin(din0[31:0]){
+        pin(din0[32:0]){
         timing(){ 
             timing_type : setup_rising; 
             related_pin  : "clk0"; 
@@ -144,7 +144,7 @@ cell (myconfig_sky){
         memory_read(){ 
             address : addr0; 
         }
-        pin(dout0[31:0]){
+        pin(dout0[32:0]){
         timing(){ 
             timing_sense : non_unate; 
             related_pin : "clk0"; 
@@ -211,6 +211,39 @@ cell (myconfig_sky){
     }
 
     pin(csb0){
+        direction  : input; 
+        capacitance : 0.006889999999999999;  
+        timing(){ 
+            timing_type : setup_rising; 
+            related_pin  : "clk0"; 
+            rise_constraint(CONSTRAINT_TABLE) {
+            values("0.103, 0.103, 0.103",\
+                   "0.103, 0.103, 0.103",\
+                   "0.103, 0.103, 0.103");
+            }
+            fall_constraint(CONSTRAINT_TABLE) {
+            values("0.103, 0.103, 0.103",\
+                   "0.103, 0.103, 0.103",\
+                   "0.103, 0.103, 0.103");
+            }
+        }
+        timing(){ 
+            timing_type : hold_rising; 
+            related_pin  : "clk0"; 
+            rise_constraint(CONSTRAINT_TABLE) {
+            values("-0.056, -0.056, -0.056",\
+                   "-0.056, -0.056, -0.056",\
+                   "-0.056, -0.056, -0.056");
+              }
+            fall_constraint(CONSTRAINT_TABLE) {
+            values("-0.056, -0.056, -0.056",\
+                   "-0.056, -0.056, -0.056",\
+                   "-0.056, -0.056, -0.056");
+            }
+        }
+    }
+
+    pin(spare_wen0){
         direction  : input; 
         capacitance : 0.006889999999999999;  
         timing(){ 
