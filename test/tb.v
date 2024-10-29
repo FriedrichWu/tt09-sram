@@ -32,7 +32,7 @@ module tb ();
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
-      .VPWR(VPWR),
+      .VDPWR(VPWR),
       .VGND(VGND),
 `endif
 
