@@ -29,6 +29,8 @@ VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_f
 # this gets copied in by the GDS action workflow
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
 
+# sram behavioral module
+VERILOG_SOURCES += ../macro/myconfig_sky.v 
 endif
 
 # Include the testbench sources:

@@ -7,8 +7,8 @@
 
 module tt_um_kmakise_sram (
 `ifdef USE_POWER_PINS
-    inout             vccd1,
-    inout             vssd1,
+    inout             VDPWR,
+    inout             VGND,
 `endif
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
@@ -105,8 +105,8 @@ SRAMController SRAMController_ins (
 
 myconfig_sky sram_ins (
 `ifdef USE_POWER_PINS
-    .vccd1(vccd1),
-    .vssd1(vssd1),
+    .vccd1(VDPWR),
+    .vssd1(VGND),
 `endif
   .clk0(clk), // clock
   .csb0(csb_n), // active low chip select
