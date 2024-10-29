@@ -9,12 +9,14 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+This project is aim to test the OpenRAM macros(modified) in tt, 
+
+## Structure
+This project caontains 1 32x16 sram macrp, 1 sram controller, 1 UART port(RX & TX).
+
 
 ## How to test
 
 Explain how to use your project
 
-## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
