@@ -16,9 +16,9 @@
 	"QUIT_ON_KLAYOUT_DRC": false,
 	"SYNTH_ABC_BUFFERING": true,
 	"RUN_HEURISTIC_DIODE_INSERTION": true,
-	"VDD_NETS": "vccd1",
-	"GND_NETS": "vssd1",
-    "FP_PDN_MACRO_HOOKS": "sram_ins vccd1 vssd1 vccd1 vssd1",
+	"VDD_NETS": "VDPWR",
+	"GND_NETS": "VGND",
+    "FP_PDN_MACRO_HOOKS": "sram_ins VDPWR VGND vccd1 vssd1",
 	"SYNTH_POWER_DEFINE": "USE_POWER_PINS",
 	"MACROS": {
 		"myconfig_sky": {

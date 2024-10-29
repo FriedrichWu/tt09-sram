@@ -38,7 +38,19 @@ VERILOG_SOURCES += $(PWD)/tb.v
 TOPLEVEL = tb
 
 # MODULE is the basename of the Python test file
+ifneq ($(GATES),yes)
+
+# rtl simulation
 MODULE = test
+
+else
+
+# gate level simulation
+# use different test file because the instance name will change after synthesis
+MODULE = test_gl
+
+endif
+
 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
