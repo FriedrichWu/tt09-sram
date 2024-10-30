@@ -50,7 +50,7 @@ add_pdn_stripe \
 	-number_of_straps 1\
     -offset 460 \
     -starts_with POWER
-
+# this is not used, since fp pdn is m5
 add_pdn_stripe \
     -grid stdcell_grid \
     -layer $::env(FP_PDN_HORIZONTAL_LAYER) \
@@ -85,7 +85,7 @@ define_pdn_grid \
 add_pdn_connect \
     -grid macro \
     -layers "met3 met4"
-	
+
 # this will add vias at the power ring, make sure power line is connected to the macro power ring
 add_pdn_connect \
     -grid stdcell_grid \

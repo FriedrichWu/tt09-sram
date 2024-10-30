@@ -540,13 +540,13 @@ MACRO myconfig_sky
       SHAPE ABUTMENT ; 
       PORT
          LAYER met3 ;
-         RECT  0.0 151.1 286.24 152.84 ;
+         RECT  1.74 151.1 284.5 152.84 ;
          LAYER met4 ;
-         RECT  0.0 0.0 1.74 152.84 ;
+         RECT  0.0 1.74 1.74 151.1 ;
          LAYER met4 ;
-         RECT  284.5 0.0 286.24 152.84 ;
+         RECT  284.5 1.74 286.24 151.1 ;
          LAYER met3 ;
-         RECT  0.0 0.0 286.24 1.74 ;
+         RECT  1.74 0.0 284.5 1.74 ;
       END
    END vccd1
    PIN vssd1
@@ -555,13 +555,13 @@ MACRO myconfig_sky
       SHAPE ABUTMENT ; 
       PORT
          LAYER met3 ;
-         RECT  3.48 147.62 282.76 149.36 ;
+         RECT  5.22 147.62 281.02 149.36 ;
          LAYER met4 ;
-         RECT  281.02 3.48 282.76 149.36 ;
+         RECT  281.02 5.22 282.76 147.62 ;
          LAYER met3 ;
-         RECT  3.48 3.48 282.76 5.22 ;
+         RECT  5.22 3.48 281.02 5.22 ;
          LAYER met4 ;
-         RECT  3.48 3.48 5.22 149.36 ;
+         RECT  3.48 5.22 5.22 147.62 ;
       END
    END vssd1
    OBS

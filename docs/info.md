@@ -7,16 +7,17 @@ You can also include images in this folder and reference them in the markdown. E
 512 kb in size, and the combined size of all images must be less than 1 MB.
 -->
 
-## How it works
+## Introduction
 
-This project is aim to test the OpenRAM macros(modified) in tt, 
+This project is aim to test the OpenRAM macros(modified) in tt. 
 
 ## Structure
+
 This project caontains 1 32x16 sram macrp, 1 sram controller, 1 UART port(RX & TX).
 
 
 ## How to test
 
-Explain how to use your project
+This project relies on the UART to communicate with. There are 2 phases to control the sram, one is the address phase, which tells the sram controller which address and which operation you want to do; Another is the data phase, depending on the operation, it could be the data being read out or the data you want to write into the sram. When transfering the address to the sram controller, in order to make " write " operation, the [5] Bit needs to be set to " 0 ", and vice versa, the [5] Bit needs to be set to " 1 " to do the " read " operation. 
 
 
