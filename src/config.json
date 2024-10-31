@@ -54,7 +54,7 @@
 	  "myconfig_sky_dual": {
 		"instances": {
 		  "sram_ins": {
-			"location": [100, 16],
+			"location": [100, 18],
 			"orientation": "N"
 		  }
 		},
