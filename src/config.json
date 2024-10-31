@@ -58,8 +58,8 @@
 			"orientation": "N"
 		  }
 		},
-		"gds": ["dir::../macro/myconfig_sky.gds"],
-		"lef": ["dir::../macro/myconfig_sky.lef"]
+		"gds": ["dir::../macro/myconfig_sky_dual.gds"],
+		"lef": ["dir::../macro/myconfig_sky_dual.lef"]
 	  }
   },
 
