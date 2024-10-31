@@ -7,7 +7,7 @@ UNITS
 END UNITS
 MACRO myconfig_sky
    CLASS BLOCK ;
-   SIZE 286.24 BY 152.84 ;
+   SIZE 286.24 BY 152.94 ;
    SYMMETRY X Y R90 ;
    PIN din0[0]
       DIRECTION INPUT ;
@@ -244,42 +244,42 @@ MACRO myconfig_sky
       DIRECTION INPUT ;
       PORT
          LAYER met3 ;
-         RECT  0.0 107.69 0.76 108.45 ;
+         RECT  0.0 107.79 0.76 108.55 ;
       END
    END addr0[0]
    PIN addr0[1]
       DIRECTION INPUT ;
       PORT
          LAYER met3 ;
-         RECT  0.0 116.19 0.76 116.95 ;
+         RECT  0.0 116.29 0.76 117.05 ;
       END
    END addr0[1]
    PIN addr0[2]
       DIRECTION INPUT ;
       PORT
          LAYER met3 ;
-         RECT  0.0 121.83 0.76 122.59 ;
+         RECT  0.0 121.93 0.76 122.69 ;
       END
    END addr0[2]
    PIN addr0[3]
       DIRECTION INPUT ;
       PORT
          LAYER met3 ;
-         RECT  0.0 130.33 0.76 131.09 ;
+         RECT  0.0 130.43 0.76 131.19 ;
       END
    END addr0[3]
    PIN addr0[4]
       DIRECTION INPUT ;
       PORT
          LAYER met3 ;
-         RECT  0.0 135.97 0.76 136.73 ;
+         RECT  0.0 136.07 0.76 136.83 ;
       END
    END addr0[4]
    PIN csb0
       DIRECTION INPUT ;
       PORT
          LAYER met3 ;
-         RECT  0.0 14.68 0.76 15.44 ;
+         RECT  0.0 14.36 0.76 15.12 ;
       END
    END csb0
    PIN web0
@@ -292,8 +292,8 @@ MACRO myconfig_sky
    PIN clk0
       DIRECTION INPUT ;
       PORT
-         LAYER met4 ;
-         RECT  30.625 0.0 31.385 0.76 ;
+         LAYER met3 ;
+         RECT  0.0 15.525 0.76 16.285 ;
       END
    END clk0
    PIN spare_wen0
@@ -540,13 +540,13 @@ MACRO myconfig_sky
       SHAPE ABUTMENT ; 
       PORT
          LAYER met3 ;
-         RECT  1.74 151.1 284.5 152.84 ;
-         LAYER met4 ;
-         RECT  0.0 1.74 1.74 151.1 ;
-         LAYER met4 ;
-         RECT  284.5 1.74 286.24 151.1 ;
-         LAYER met3 ;
          RECT  1.74 0.0 284.5 1.74 ;
+         LAYER met4 ;
+         RECT  284.5 1.74 286.24 151.2 ;
+         LAYER met4 ;
+         RECT  0.0 1.74 1.74 151.2 ;
+         LAYER met3 ;
+         RECT  1.74 151.2 284.5 152.94 ;
       END
    END vccd1
    PIN vssd1
@@ -554,47 +554,47 @@ MACRO myconfig_sky
       USE GROUND ; 
       SHAPE ABUTMENT ; 
       PORT
-         LAYER met3 ;
-         RECT  5.22 147.62 281.02 149.36 ;
          LAYER met4 ;
-         RECT  281.02 5.22 282.76 147.62 ;
+         RECT  3.48 5.22 5.22 147.72 ;
+         LAYER met3 ;
+         RECT  5.22 147.72 281.02 149.46 ;
+         LAYER met4 ;
+         RECT  281.02 5.22 282.76 147.72 ;
          LAYER met3 ;
          RECT  5.22 3.48 281.02 5.22 ;
-         LAYER met4 ;
-         RECT  3.48 5.22 5.22 147.62 ;
       END
    END vssd1
    OBS
    LAYER  met1 ;
-      RECT  0.62 0.62 285.62 152.22 ;
+      RECT  0.62 0.62 285.62 152.32 ;
    LAYER  met2 ;
-      RECT  0.62 0.62 285.62 152.22 ;
+      RECT  0.62 0.62 285.62 152.32 ;
    LAYER  met3 ;
-      RECT  1.36 107.09 285.62 109.05 ;
-      RECT  0.62 109.05 1.36 115.59 ;
-      RECT  0.62 117.55 1.36 121.23 ;
-      RECT  0.62 123.19 1.36 129.73 ;
-      RECT  0.62 131.69 1.36 135.37 ;
-      RECT  0.62 16.04 1.36 22.58 ;
-      RECT  0.62 24.54 1.36 107.09 ;
-      RECT  0.62 137.33 1.36 150.5 ;
-      RECT  0.62 2.34 1.36 14.08 ;
-      RECT  1.36 109.05 2.88 147.02 ;
-      RECT  1.36 147.02 2.88 149.96 ;
-      RECT  1.36 149.96 2.88 150.5 ;
-      RECT  2.88 109.05 283.36 147.02 ;
-      RECT  2.88 149.96 283.36 150.5 ;
-      RECT  283.36 109.05 285.62 147.02 ;
-      RECT  283.36 147.02 285.62 149.96 ;
-      RECT  283.36 149.96 285.62 150.5 ;
+      RECT  1.36 107.19 285.62 109.15 ;
+      RECT  0.62 109.15 1.36 115.69 ;
+      RECT  0.62 117.65 1.36 121.33 ;
+      RECT  0.62 123.29 1.36 129.83 ;
+      RECT  0.62 131.79 1.36 135.47 ;
+      RECT  0.62 24.54 1.36 107.19 ;
+      RECT  0.62 16.885 1.36 22.58 ;
+      RECT  0.62 2.34 1.36 13.76 ;
+      RECT  0.62 137.43 1.36 150.6 ;
+      RECT  1.36 109.15 2.88 147.12 ;
+      RECT  1.36 147.12 2.88 150.06 ;
+      RECT  1.36 150.06 2.88 150.6 ;
+      RECT  2.88 109.15 283.36 147.12 ;
+      RECT  2.88 150.06 283.36 150.6 ;
+      RECT  283.36 109.15 285.62 147.12 ;
+      RECT  283.36 147.12 285.62 150.06 ;
+      RECT  283.36 150.06 285.62 150.6 ;
       RECT  1.36 2.34 2.88 2.88 ;
       RECT  1.36 2.88 2.88 5.82 ;
-      RECT  1.36 5.82 2.88 107.09 ;
+      RECT  1.36 5.82 2.88 107.19 ;
       RECT  2.88 2.34 283.36 2.88 ;
-      RECT  2.88 5.82 283.36 107.09 ;
+      RECT  2.88 5.82 283.36 107.19 ;
       RECT  283.36 2.34 285.62 2.88 ;
       RECT  283.36 2.88 285.62 5.82 ;
-      RECT  283.36 5.82 285.62 107.09 ;
+      RECT  283.36 5.82 285.62 107.19 ;
    END
 END    myconfig_sky
 END    LIBRARY
