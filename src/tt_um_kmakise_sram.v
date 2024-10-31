@@ -49,11 +49,12 @@ wire csb_n;
 wire we_n;
 wire [4:0] addr;
 wire [31:0] sram_data_in;
-wire [32:0] sram_data_out_full;
-wire [32:0] sram_data_in_full;
+wire [31:0] sram_data_out;
+//wire [32:0] sram_data_out_full;
+//wire [32:0] sram_data_in_full;
 wire rx_in;
 wire tx_out;
-assign sram_data_in_full = {1'b0, sram_data_in};
+//assign sram_data_in_full = {1'b0, sram_data_in};
 assign reset = ~rst_n;
 assign rx_in = ui_in[3];
 assign uio_out[4] = tx_out;
@@ -99,10 +100,11 @@ SRAMController SRAMController_ins (
 	.csb_n (csb_n),
 	.we_n (we_n),
 	.addr (addr),
-	.sram_data_out (sram_data_out_full[31:0]),
+	//.sram_data_out (sram_data_out_full[31:0]),
+	.sram_data_out (sram_data_out),
 	.sram_data_in (sram_data_in)
 );
-
+/*
 myconfig_sky sram_ins (
 `ifdef USE_POWER_PINS
     .vccd1(VDPWR),
@@ -115,5 +117,22 @@ myconfig_sky sram_ins (
   .spare_wen0(1'b0), // spare mask
   .din0(sram_data_in_full),
   .dout0(sram_data_out_full)
+);
+*/
+myconfig_sky_dual sram_ins (
+`ifdef USE_POWER_PINS
+    .vccd1  (VDPWR          ),
+    .vssd1  (VGND          ),
+`endif		
+	.clk0 (clk),
+	.csb0 (csb_n),
+	.web0 (we_n),
+	.addr0 (addr[3:0]),
+	.din0 (sram_data_in),
+	.dout0 (sram_data_out),
+	.clk1 (1'b0),
+	.addr1 (4'b0),
+	.csb1  (1'b1),
+	.dout1 ()
 );
 endmodule

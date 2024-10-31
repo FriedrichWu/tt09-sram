@@ -38,7 +38,7 @@ add_pdn_stripe \
     -pitch $::env(FP_PDN_VPITCH) \
 	-spacing 2\
 	-number_of_straps 1\
-    -offset 183 \
+    -offset 143 \
     -starts_with POWER\
 
 add_pdn_stripe \
@@ -48,7 +48,7 @@ add_pdn_stripe \
     -pitch $::env(FP_PDN_VPITCH) \
 	-spacing 2\
 	-number_of_straps 1\
-    -offset 460 \
+    -offset 470 \
     -starts_with POWER
 # this is not used, since fp pdn is m5
 add_pdn_stripe \

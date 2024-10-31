@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = tt_um_kmakise_sram.v SRAMController.v UARTReceiver.v UARTTransmitter.v ../macro/myconfig_sky.v 
+PROJECT_SOURCES = tt_um_kmakise_sram.v SRAMController.v UARTReceiver.v UARTTransmitter.v ../macro/myconfig_sky_dual.v 
 
 ifneq ($(GATES),yes)
 
@@ -30,7 +30,7 @@ VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_f
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
 
 # sram behavioral module
-VERILOG_SOURCES += ../macro/myconfig_sky.v 
+VERILOG_SOURCES += ../macro/myconfig_sky_dual.v 
 endif
 
 # Include the testbench sources:

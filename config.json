@@ -1,7 +1,7 @@
 {
 	"DESIGN_NAME": "tt_um_kmakise_sram",
 	"VERILOG_FILES": ["dir::src/tt_um_kmakise_sram.v", "dir::src/SRAMController.v", "dir::src/UARTReceiver.v", "dir::src/UARTTransmitter.v"],
-	"EXTRA_VERILOG_MODELS": ["dir::src/myconfig_sky.v"],
+	"EXTRA_VERILOG_MODELS": ["dir::src/myconfig_sky_dual.v"],
   
 	"FP_PDN_CHECK_NODES": false,
 	"FP_PDN_VOFFSET": 26.32,
@@ -21,20 +21,20 @@
     "FP_PDN_MACRO_HOOKS": "sram_ins VDPWR VGND vccd1 vssd1",
 	"SYNTH_POWER_DEFINE": "USE_POWER_PINS",
 	"MACROS": {
-		"myconfig_sky": {
+		"myconfig_sky_dual": {
 		  "instances": {
 			"sram_ins": {
-			  "location": [150, 23],
+			  "location": [100, 16],
 			  "orientation": "N"
 			}
 		  },
-		  "gds": ["dir::macro/myconfig_sky.gds"],
-		  "lef": ["dir::macro/myconfig_sky.lef"]
+		  "gds": ["dir::macro/myconfig_sky_dual.gds"],
+		  "lef": ["dir::macro/myconfig_sky_dual.lef"]
 		}
 	},
-
+    "GRT_ALLOW_CONGESTION": true,
 	"FP_SIZING": "absolute",
-	"DIE_AREA": [0, 0, 480, 200],
+	"DIE_AREA": [0, 0, 490, 200],
   
 	"//": "MAGIC_DEF_LABELS may cause issues with LVS",
 	"MAGIC_DEF_LABELS": false,
