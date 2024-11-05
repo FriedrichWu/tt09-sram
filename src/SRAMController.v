@@ -16,7 +16,16 @@ module SRAMController (
 	output reg        we_n,
 	output reg [ 4:0] addr,
 	input wire [31:0] sram_data_out,
-	output reg [31:0] sram_data_in
+	output reg [31:0] sram_data_in,
+	// dpu
+	output  reg        dpu_load_cmd, // from controller
+	output  reg        requst_valid, // from controller
+	output  reg  [7:0] nxt_cmd, 
+	output  reg [31:0] sram_data_to_dpu,
+	input  wire [31:0] sram_data_from_dpu,
+	input  wire  [4:0] sram_addr_from_dpu,
+	input  wire        read_requst,	
+	input  wire        send_request	
 );
 //=====================================//
 //==========INTERNAL_SIGNAL============//
@@ -32,6 +41,10 @@ localparam WD_1       = 4'b0111;
 localparam WD_2       = 4'b1000;
 localparam WD_3       = 4'b1001;
 localparam WRITE      = 4'b1010;
+localparam DPU        = 4'b1011;
+localparam DPU_RD     = 4'b1100;
+localparam DPU_WD     = 4'b1101;
+localparam DPU_FIN    = 4'b1110;
 reg [ 3:0] cur_state;
 reg [ 3:0] nxt_state;
 reg [ 7:0] addr_tmp;
@@ -88,22 +101,32 @@ end
 
 always @(*) begin
 	//defualt value
-	addr_tmp_en  = 'b0;
-	we_n         = 'b0;
-	csb_n        = 'b1;
-	tx_enable    = 'b0;
-	tx_valid     = 'b0; 
-	rx_ready     = 'b0;
-	data_tmp_en  = 'b0;
-	rx_enable    = 'b1;
-	addr         = 'b0;
-	sram_data_in = 'b0;
-	tx_data_in   = 'b0;
-	sram_tmp_en  = 'b0;
+	addr_tmp_en      = 'b0;
+	we_n             = 'b0;
+	csb_n            = 'b1;
+	tx_enable        = 'b0;
+	tx_valid         = 'b0; 
+	rx_ready         = 'b0;
+	data_tmp_en      = 'b0;
+	rx_enable        = 'b1;
+	addr             = 'b0;
+	sram_data_in     = 'b0;
+	tx_data_in       = 'b0;
+	sram_tmp_en      = 'b0;
+	dpu_load_cmd     = 'b0;
+	requst_valid     = 'b0;
+	nxt_cmd          = 'b0;
+	sram_data_to_dpu = 'b0;
 	case (cur_state)
 		IDLE: begin
 			if (rx_valid) begin
-				if (rx_data_out[5] == 'b1) begin // read 
+				if (rx_data_out[7] == 'b1) begin // dpu
+					dpu_load_cmd = 'b1;
+					nxt_cmd = rx_data_out;
+					rx_ready ='b1;
+					nxt_state = DPU;
+				end
+				else if (rx_data_out[5] == 'b1) begin // read 
                     we_n      = 'b1;
 					csb_n     = 'b0;
 					addr      = rx_data_out[4:0];
@@ -218,6 +241,38 @@ always @(*) begin
 			csb_n        = 'b0;
 			addr         = addr_tmp[4:0];
 			sram_data_in = data_tmp;	
+			nxt_state    = IDLE;
+		end
+		DPU: begin
+			if (read_requst) begin
+				we_n      = 'b1;
+				csb_n     = 'b0;
+				addr      = sram_addr_from_dpu;
+				nxt_state = DPU_RD;
+			end
+			else begin
+				nxt_state = DPU;
+			end
+		end
+		DPU_RD: begin
+			sram_data_to_dpu = sram_data_out;
+			requst_valid = 'b1;
+			nxt_state    = DPU_WD;
+		end
+		DPU_WD: begin
+			if (send_request) begin
+				we_n         = 'b0;
+				csb_n        ='b0;
+				addr         = sram_addr_from_dpu;
+				sram_data_in = sram_data_from_dpu;
+				nxt_state    =DPU_FIN;
+			end
+			else begin
+				nxt_state = DPU_WD;
+			end
+		end
+		DPU_FIN: begin
+			requst_valid = 'b1;
 			nxt_state    = IDLE;
 		end
 		default: begin

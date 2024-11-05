@@ -54,6 +54,14 @@ wire [31:0] sram_data_out;
 //wire [32:0] sram_data_in_full;
 wire        rx_in;
 wire        tx_out;
+wire        dpu_load_cmd;
+wire        requst_valid;
+wire [ 7:0] nxt_cmd;
+wire [31:0] sram_data_from_dpu;
+wire [31:0] sram_data_to_dpu;
+wire [ 4:0] sram_addr_from_dpu;  
+wire        read_requst;
+wire        send_request;
 //assign sram_data_in_full = {1'b0, sram_data_in};
 assign reset      = ~rst_n;
 assign rx_in      = ui_in[3];
@@ -102,7 +110,15 @@ SRAMController SRAMController_ins (
 	.addr          (addr         ),
 	//.sram_data_out (sram_data_out_full[31:0]),
 	.sram_data_out (sram_data_out),
-	.sram_data_in  (sram_data_in )
+	.sram_data_in  (sram_data_in ),
+	.dpu_load_cmd  (dpu_load_cmd ), // from controller
+	.requst_valid  (requst_valid ), // from controller
+	.nxt_cmd       (nxt_cmd      ), 
+	.sram_data_to_dpu   (sram_data_to_dpu ),
+	.sram_data_from_dpu (sram_data_from_dpu),
+	.sram_addr_from_dpu (sram_addr_from_dpu),
+	.read_requst        (read_requst       ),	
+	.send_request       (send_request      ) 
 );
 /*
 myconfig_sky sram_ins (
@@ -135,4 +151,19 @@ myconfig_sky_dual sram_ins (
 	.csb1   (1'b1          ),
 	.dout1  ()
 );
+
+dpu dpu_ins (
+	.clk           (clk),
+	.rst_n         (rst_n),
+	//sram controller
+	.dpu_load_cmd  (dpu_load_cmd), // from controller
+	.requst_valid  (requst_valid), // from controller
+	.nxt_cmd       (nxt_cmd), 
+	.sram_data_read(sram_data_to_dpu),
+	.sram_data_out (sram_data_from_dpu),
+	.sram_addr     (sram_addr_from_dpu),
+	.read_requst   (read_requst),	
+	.send_request  (send_request)
+);
+
 endmodule

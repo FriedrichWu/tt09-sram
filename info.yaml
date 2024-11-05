@@ -22,6 +22,7 @@ project:
     - "SRAMController.v"
     - "UARTReceiver.v"
     - "UARTTransmitter.v"
+    - "dpu.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:

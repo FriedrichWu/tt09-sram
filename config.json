@@ -1,6 +1,6 @@
 {
 	"DESIGN_NAME": "tt_um_kmakise_sram",
-	"VERILOG_FILES": ["dir::src/tt_um_kmakise_sram.v", "dir::src/SRAMController.v", "dir::src/UARTReceiver.v", "dir::src/UARTTransmitter.v"],
+	"VERILOG_FILES": ["dir::src/tt_um_kmakise_sram.v", "dir::src/SRAMController.v", "dir::src/UARTReceiver.v", "dir::src/UARTTransmitter.v", "dir::src/dpu.v"],
 	"EXTRA_VERILOG_MODELS": ["dir::src/myconfig_sky_dual.v"],
   
 	"FP_PDN_CHECK_NODES": false,
