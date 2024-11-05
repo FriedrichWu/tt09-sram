@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = tt_um_kmakise_sram.v SRAMController.v UARTReceiver.v UARTTransmitter.v ../macro/myconfig_sky_dual.v 
+PROJECT_SOURCES = tt_um_kmakise_sram.v SRAMController.v UARTReceiver.v UARTTransmitter.v ../macro/myconfig_sky_dual.v dpu.v 
 
 ifneq ($(GATES),yes)
 
