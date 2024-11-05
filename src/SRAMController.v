@@ -126,17 +126,19 @@ always @(*) begin
 					rx_ready ='b1;
 					nxt_state = DPU;
 				end
-				else if (rx_data_out[5] == 'b1) begin // read 
-                    we_n      = 'b1;
-					csb_n     = 'b0;
-					addr      = rx_data_out[4:0];
-					rx_ready  = 'b1;
-					nxt_state = READ_STORE;
-				end 
-				else begin // write
-					addr_tmp_en = 'b1;// store the address
-					rx_ready    = 'b1;
-					nxt_state   = WD_0;
+				else begin
+				    if (rx_data_out[5] == 'b1) begin // read 
+                        we_n      = 'b1;
+					    csb_n     = 'b0;
+					    addr      = rx_data_out[4:0];
+					    rx_ready  = 'b1;
+					    nxt_state = READ_STORE;
+				    end 
+				    else begin // write
+					    addr_tmp_en = 'b1;// store the address
+					    rx_ready    = 'b1;
+					    nxt_state   = WD_0;
+				    end
 				end
 			end
 			else begin
@@ -265,7 +267,7 @@ always @(*) begin
 				csb_n        ='b0;
 				addr         = sram_addr_from_dpu;
 				sram_data_in = sram_data_from_dpu;
-				nxt_state    =DPU_FIN;
+				nxt_state    = DPU_FIN;
 			end
 			else begin
 				nxt_state = DPU_WD;

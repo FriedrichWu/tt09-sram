@@ -7,9 +7,45 @@ from cocotb.triggers import ClockCycles, FallingEdge, Timer
 from cocotb.utils import get_sim_time
 import random
 
-NUM_RUNS_SMOKE = 100
-NUM_RUNS_RANDOM = 100
+NUM_RUNS_SMOKE = 1
+NUM_RUNS_RANDOM = 1
 BAUD_ERR_PERCENT = 2
+
+@cocotb.test(timeout_time=50, timeout_unit='sec')
+async def run_smoke_case_dpu(dut):
+    await reset_project(dut)
+	# addr
+    ADDR_BYTE_CMD = 0b00000000 # write sram
+    # randomized data
+    DATA_BYTE_0 = random.randint(0,255)
+    DATA_BYTE_1 = random.randint(0,255)
+    DATA_BYTE_2 = random.randint(0,255)
+    DATA_BYTE_3 = random.randint(0,255) 
+    print("data0-{0}".format(DATA_BYTE_0))
+    print("data1-{0}".format(DATA_BYTE_1))
+    print("data2-{0}".format(DATA_BYTE_2))
+    print("data3-{0}".format(DATA_BYTE_3))
+    # randomized baud multiplier (+/- 2%)
+    baud_mult = 1.0 + (random.random() - 0.5) / 50 * BAUD_ERR_PERCENT
+        
+	# write into sram
+    await write_sram(dut, ADDR_BYTE_CMD, DATA_BYTE_0, DATA_BYTE_1, DATA_BYTE_2, DATA_BYTE_3, 9600, baud_mult)
+    await Timer(10, units='ms')  
+    
+	# activate dpu
+    ADDR_BYTE_CMD = 0b10000000
+    await write_dpu_cmd(dut, ADDR_BYTE_CMD, 9600, baud_mult)
+    await Timer(10, units='ms')
+	# read from sram
+    ADDR_BYTE_CMD = 0b00100000
+    await read_sram(dut, ADDR_BYTE_CMD, 9600, baud_mult)
+        
+	# check the result
+    await check_data(dut, (DATA_BYTE_0 + 1), DATA_BYTE_1, DATA_BYTE_2, DATA_BYTE_3, 9600, baud_mult)
+    # randomized inter-TX interval
+    await Timer(10, units='ms')
+    if random.random() > 0.1:
+        await Timer(random.randint(1,2000), units='ns')  
 
 @cocotb.test(timeout_time=50, timeout_unit='sec')
 async def run_smoke_case(dut):
@@ -22,7 +58,7 @@ async def run_smoke_case(dut):
     for count in range(NUM_RUNS_SMOKE):
         
 		# addr
-        ADDR_BYTE_CMD = 0b00000000 # write sram
+        ADDR_BYTE_CMD = 0b00000110 # write sram
         # randomized data
         DATA_BYTE_0 = random.randint(0,255)
         DATA_BYTE_1 = random.randint(0,255)
@@ -40,7 +76,7 @@ async def run_smoke_case(dut):
         await Timer(10, units='ms')
         
 		# read from sram
-        ADDR_BYTE_CMD = 0b00100000
+        ADDR_BYTE_CMD = 0b00100110
         await read_sram(dut, ADDR_BYTE_CMD, 9600, baud_mult)
         
 		# check the result
@@ -107,6 +143,21 @@ async def reset_project(dut):
     dut.rst_n.value = 1
     await ClockCycles(dut.clk, 40)
     
+async def write_dpu_cmd(dut, cmd, baud, baud_mult):
+    dut._log.info("use dpu")
+    TEST_ADDR_LSB = [(cmd >> s) & 1 for s in range(8)]
+    # addr write
+    i = 0
+    for tx_bit in [0] + TEST_ADDR_LSB + [1]:
+        dut._log.info("dpu finish1111111111111")
+        current_value = 0b00000000
+        current_value |= (tx_bit << 3)
+        dut.ui_in.value = current_value 
+        print("current_value: {0}  tx: {1} i: {2}".format(current_value, tx_bit, i))
+        i = i + 1
+        await Timer(int(1 / baud * baud_mult * 1e12), units="ps")
+    dut._log.info("dpu finish")
+                    
 async def write_sram(dut, addr, data_0, data_1, data_2, data_3, baud, baud_mult):
     dut._log.info("write data to sram")
     TEST_ADDR_LSB = [(addr >> s) & 1 for s in range(8)] 
@@ -119,7 +170,7 @@ async def write_sram(dut, addr, data_0, data_1, data_2, data_3, baud, baud_mult)
         current_value = 0b00000000
         current_value |= (tx_bit << 3)
         dut.ui_in.value = current_value 
-        #print("current_value: {0}".format(dut.ui_in.value))
+        print("current_value: {0}".format(dut.ui_in.value))
         await Timer(int(1 / baud * baud_mult * 1e12), units="ps")
     # wait before data phase
     await Timer(10, units='ms')

@@ -65,8 +65,8 @@ always @(posedge clk, negedge rst_n) begin
 	end
 end
 always @(*) begin
-	read_requst = 1'b0;
-	load = 1'b0;
+	read_requst  = 1'b0;
+	load         = 1'b0;
 	send_request = 1'b0;
 	case (cur_state)
 		IDLE: begin
