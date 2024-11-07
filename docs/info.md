@@ -18,6 +18,11 @@ This project caontains 1 32x16 sram macrp, 1 sram controller, 1 UART port(RX & T
 
 ## How to test
 
-This project relies on the UART to communicate with. There are 2 phases to control the sram, one is the address phase, which tells the sram controller which address and which operation you want to do; Another is the data phase, depending on the operation, it could be the data being read out or the data you want to write into the sram. When transfering the address to the sram controller, in order to make " write " operation, the [5] Bit needs to be set to " 0 ", and vice versa, the [5] Bit needs to be set to " 1 " to do the " read " operation. 
+This project relies on the UART to communicate with. There are 2 phases to control the sram, one is the address phase, which tells the sram controller which address and which operation you want to do; Another is the data phase, depending on the operation, it could be the data being read out or the data you want to write into the sram. When transfering the address to the sram controller, in order to make " write " operation, the [5] Bit needs to be set to " 0 ", and vice versa, the [5] Bit needs to be set to " 1 " to do the " read " operation.  
+ 
+There's a dpu inside it, the [7] is used to activate the dpu, which will read the data in sram, do some operation, and then write back to the sram.  
+
+Just to make sure uart cmd timing. Suggest to transfer the first cmd only when uart_ready == 1
+
 
 
