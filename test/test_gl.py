@@ -8,7 +8,7 @@ from cocotb.utils import get_sim_time
 import random
 
 NUM_RUNS_SMOKE = 1
-NUM_RUNS_RANDOM = 1
+NUM_RUNS_RANDOM = 10
 BAUD_ERR_PERCENT = 2
 
 @cocotb.test(timeout_time=50, timeout_unit='sec')
