@@ -11,7 +11,7 @@
 	"MAGIC_LEF_WRITE_USE_GDS": false,
 	"MAGIC_CAPTURE_ERRORS": false,
 	"MAGIC_WRITE_LEF_PINONLY": true,
-	"MAGIC_DRC_USE_GDS": false,
+	"MAGIC_DRC_USE_GDS": true,
 	"QUIT_ON_MAGIC_DRC": false,
 	"QUIT_ON_KLAYOUT_DRC": false,
 	"SYNTH_ABC_BUFFERING": true,
@@ -34,7 +34,7 @@
 	},
     "GRT_ALLOW_CONGESTION": true,
 	"FP_SIZING": "absolute",
-	"DIE_AREA": [0, 0, 490, 200],
+	"DIE_AREA": [0, 0, 500, 210],
   
 	"//": "MAGIC_DEF_LABELS may cause issues with LVS",
 	"MAGIC_DEF_LABELS": false,

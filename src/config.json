@@ -41,7 +41,7 @@
   "RUN_MAGIC_WRITE_LEF": true,
   "MAGIC_LEF_WRITE_USE_GDS": false,
   "MAGIC_CAPTURE_ERRORS": false,
-  "MAGIC_DRC_USE_GDS": false,
+  "MAGIC_DRC_USE_GDS": true,
   "QUIT_ON_MAGIC_DRC": false,
   "QUIT_ON_KLAYOUT_DRC": false,
   "SYNTH_ABC_BUFFERING": true,

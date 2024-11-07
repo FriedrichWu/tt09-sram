@@ -1,6 +1,7 @@
 module SRAMController (
 	input wire        clk,
 	input wire        rst_n,
+	output reg        uart_ready,
 	// tx 
 	input wire        tx_ready,
 	output reg        tx_enable,
@@ -116,8 +117,10 @@ always @(*) begin
 	requst_valid     = 'b0;
 	nxt_cmd          = 'b0;
 	sram_data_to_dpu = 'b0;
+	uart_ready       = 'b0;
 	case (cur_state)
 		IDLE: begin
+			uart_ready = 'b1;
 			if (rx_valid) begin
 				if (rx_data_out[7] == 'b1) begin // dpu
 					dpu_load_cmd = 'b1;

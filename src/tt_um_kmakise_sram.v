@@ -29,7 +29,6 @@ assign uio_out[2] = 1'b0;
 assign uio_out[1] = 1'b0;
 assign uio_out[0] = 1'b0;
 //the noraml output IO
-assign uo_out[0] = 1'b0;
 assign uo_out[1] = 1'b0;
 assign uo_out[2] = 1'b0;
 assign uo_out[3] = 1'b0;
@@ -92,6 +91,7 @@ UARTTransmitter UARTTransmitter_ins (
 SRAMController SRAMController_ins (
 	.clk           (clk          ),
 	.rst_n         (rst_n        ),
+	.uart_ready    (uo_out[0]    ),
 	// tx 
 	.tx_ready      (tx_ready     ),
 	.tx_enable     (tx_enable    ),
@@ -135,13 +135,13 @@ myconfig_sky_dual sram_ins (
 );
 
 dpu dpu_ins (
-	.clk           (clk),
-	.rst_n         (rst_n),
+	.clk           (clk               ),
+	.rst_n         (rst_n             ),
 	//sram controller
-	.dpu_load_cmd  (dpu_load_cmd), // from controller
-	.requst_valid  (requst_valid), // from controller
-	.nxt_cmd       (nxt_cmd), 
-	.sram_data_read(sram_data_to_dpu),
+	.dpu_load_cmd  (dpu_load_cmd      ), // from controller
+	.requst_valid  (requst_valid      ), // from controller
+	.nxt_cmd       (nxt_cmd           ), 
+	.sram_data_read(sram_data_to_dpu  ),
 	.sram_data_out (sram_data_from_dpu),
 	.sram_addr     (sram_addr_from_dpu)
 );

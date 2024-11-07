@@ -37,7 +37,7 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
+  uo[0]: "uart_ready"
   uo[1]: ""
   uo[2]: ""
   uo[3]: ""

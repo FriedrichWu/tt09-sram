@@ -81,12 +81,13 @@ define_pdn_grid \
     -name macro \
     -starts_with POWER \
     -halo "$::env(FP_PDN_HORIZONTAL_HALO) $::env(FP_PDN_VERTICAL_HALO)"
-
+	
+# this will add vias at the power ring, make sure power line is connected to the macro power ring
 add_pdn_connect \
     -grid macro \
     -layers "met3 met4"
 
-# this will add vias at the power ring, make sure power line is connected to the macro power ring
+
 add_pdn_connect \
     -grid stdcell_grid \
     -layers "met3 met4"
