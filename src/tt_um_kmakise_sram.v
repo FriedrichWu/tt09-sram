@@ -60,8 +60,6 @@ wire [ 7:0] nxt_cmd;
 wire [31:0] sram_data_from_dpu;
 wire [31:0] sram_data_to_dpu;
 wire [ 4:0] sram_addr_from_dpu;  
-wire        read_requst;
-wire        send_request;
 //assign sram_data_in_full = {1'b0, sram_data_in};
 assign reset      = ~rst_n;
 assign rx_in      = ui_in[3];
@@ -82,13 +80,13 @@ UARTReceiver UARTReceiver_ins (
 );
 
 UARTTransmitter UARTTransmitter_ins (
-    .clk        (clk        ),      // clock
-    .reset      (reset      ),    // reset
+    .clk        (clk        ),   // clock
+    .reset      (reset      ),   // reset
     .enable     (tx_enable  ),   // TX enable
-    .valid      (tx_valid   ),    // start transaction
-    .in         (tx_data_in ),       // data to transmit
-    .out        (tx_out     ),      // TX line
-    .ready      (tx_ready   )     // ready for TX
+    .valid      (tx_valid   ),   // start transaction
+    .in         (tx_data_in ),   // data to transmit
+    .out        (tx_out     ),   // TX line
+    .ready      (tx_ready   )    // ready for TX
 );
 
 SRAMController SRAMController_ins (
@@ -116,25 +114,9 @@ SRAMController SRAMController_ins (
 	.nxt_cmd       (nxt_cmd      ), 
 	.sram_data_to_dpu   (sram_data_to_dpu ),
 	.sram_data_from_dpu (sram_data_from_dpu),
-	.sram_addr_from_dpu (sram_addr_from_dpu),
-	.read_requst        (read_requst       ),	
-	.send_request       (send_request      ) 
+	.sram_addr_from_dpu (sram_addr_from_dpu)
 );
-/*
-myconfig_sky sram_ins (
-`ifdef USE_POWER_PINS
-    .vccd1(VDPWR),
-    .vssd1(VGND),
-`endif
-  .clk0(clk), // clock
-  .csb0(csb_n), // active low chip select
-  .web0(we_n), // active low write control
-  .addr0(addr),
-  .spare_wen0(1'b0), // spare mask
-  .din0(sram_data_in_full),
-  .dout0(sram_data_out_full)
-);
-*/
+
 myconfig_sky_dual sram_ins (
 `ifdef USE_POWER_PINS
     .vccd1  (VDPWR         ),
@@ -161,9 +143,7 @@ dpu dpu_ins (
 	.nxt_cmd       (nxt_cmd), 
 	.sram_data_read(sram_data_to_dpu),
 	.sram_data_out (sram_data_from_dpu),
-	.sram_addr     (sram_addr_from_dpu),
-	.read_requst   (read_requst),	
-	.send_request  (send_request)
+	.sram_addr     (sram_addr_from_dpu)
 );
 
 endmodule

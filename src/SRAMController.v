@@ -23,9 +23,7 @@ module SRAMController (
 	output  reg  [7:0] nxt_cmd, 
 	output  reg [31:0] sram_data_to_dpu,
 	input  wire [31:0] sram_data_from_dpu,
-	input  wire  [4:0] sram_addr_from_dpu,
-	input  wire        read_requst,	
-	input  wire        send_request	
+	input  wire  [4:0] sram_addr_from_dpu
 );
 //=====================================//
 //==========INTERNAL_SIGNAL============//
@@ -42,6 +40,7 @@ localparam WD_2       = 4'b1000;
 localparam WD_3       = 4'b1001;
 localparam WRITE      = 4'b1010;
 localparam DPU        = 4'b1011;
+localparam DPU_TMP    = 4'b1111;
 localparam DPU_RD     = 4'b1100;
 localparam DPU_WD     = 4'b1101;
 localparam DPU_FIN    = 4'b1110;
@@ -246,34 +245,28 @@ always @(*) begin
 			nxt_state    = IDLE;
 		end
 		DPU: begin
-			if (read_requst) begin
-				we_n      = 'b1;
-				csb_n     = 'b0;
-				addr      = sram_addr_from_dpu;
-				nxt_state = DPU_RD;
-			end
-			else begin
-				nxt_state = DPU;
-			end
+			we_n      = 'b1;
+			csb_n     = 'b0;
+			addr      = sram_addr_from_dpu;
+			nxt_state = DPU_TMP;
 		end
-		DPU_RD: begin
-			sram_data_to_dpu = sram_data_out;
-			requst_valid = 'b1;
-			nxt_state    = DPU_WD;
+		DPU_TMP: begin // the data read from sram will be saved 
+			sram_tmp_en = 'b1;
+			nxt_state   = DPU_RD;
 		end
-		DPU_WD: begin
-			if (send_request) begin
-				we_n         = 'b0;
-				csb_n        ='b0;
-				addr         = sram_addr_from_dpu;
-				sram_data_in = sram_data_from_dpu;
-				nxt_state    = DPU_FIN;
-			end
-			else begin
-				nxt_state = DPU_WD;
-			end
+		DPU_RD: begin // transfer the data read to dpu
+			sram_data_to_dpu = sram_tmp;
+			requst_valid     = 'b1;
+			nxt_state        = DPU_WD;
+		end
+		DPU_WD: begin // during this state, the dpu is calculating the data, and put it in the dpu output
+			nxt_state    = DPU_FIN;
 		end
 		DPU_FIN: begin
+			we_n         = 'b0;
+			csb_n        ='b0;
+			addr         = sram_addr_from_dpu;
+			sram_data_in = sram_data_from_dpu;
 			requst_valid = 'b1;
 			nxt_state    = IDLE;
 		end

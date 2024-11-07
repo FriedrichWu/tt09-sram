@@ -7,9 +7,7 @@ module dpu (
 	input  wire  [7:0] nxt_cmd, 
 	input  wire [31:0] sram_data_read,
 	output reg  [31:0] sram_data_out,
-	output wire  [4:0] sram_addr,
-	output reg         read_requst,	
-	output reg         send_request
+	output wire  [4:0] sram_addr
 );
 //===============================================================//
 // INTERNAL SIGNAL
@@ -22,7 +20,7 @@ localparam IDLE = 2'b00;
 localparam RD   = 2'b01;
 localparam CAL  = 2'b10;
 localparam SEND = 2'b11;
-reg [7:0]  cur_cmd;
+reg  [7:0] cur_cmd;
 reg  [1:0] cur_state;
 reg  [1:0] nxt_state;
 wire [1:0] mod;
@@ -65,9 +63,7 @@ always @(posedge clk, negedge rst_n) begin
 	end
 end
 always @(*) begin
-	read_requst  = 1'b0;
 	load         = 1'b0;
-	send_request = 1'b0;
 	case (cur_state)
 		IDLE: begin
 			if (dpu_load_cmd) begin
@@ -78,9 +74,7 @@ always @(*) begin
 			end
 		end
 		RD: begin
-			read_requst = 1'b1;
 			if (requst_valid) begin
-				read_requst = 1'b0;
 				load = 'b1;
 				nxt_state = CAL;
 			end
@@ -92,9 +86,7 @@ always @(*) begin
 			nxt_state = SEND;
 		end
 		SEND: begin
-			send_request = 1'b1;
 			if (requst_valid) begin
-				send_request = 1'b0;
 				nxt_state = IDLE;
 			end
 			else begin
