@@ -38,7 +38,7 @@ add_pdn_stripe \
     -pitch $::env(FP_PDN_VPITCH) \
 	-spacing 2\
 	-number_of_straps 1\
-    -offset 143 \
+    -offset 144 \
     -starts_with POWER\
 
 add_pdn_stripe \
@@ -48,7 +48,7 @@ add_pdn_stripe \
     -pitch $::env(FP_PDN_VPITCH) \
 	-spacing 2\
 	-number_of_straps 1\
-    -offset 470 \
+    -offset 471 \
     -starts_with POWER
 # this is not used, since fp pdn is m5
 add_pdn_stripe \
@@ -81,7 +81,7 @@ define_pdn_grid \
     -name macro \
     -starts_with POWER \
     -halo "$::env(FP_PDN_HORIZONTAL_HALO) $::env(FP_PDN_VERTICAL_HALO)"
-	
+
 # this will add vias at the power ring, make sure power line is connected to the macro power ring
 add_pdn_connect \
     -grid macro \
